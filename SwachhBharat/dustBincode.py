@@ -55,10 +55,12 @@ def main():
     # Send some test
     lcd_display(0x01,LCD_CMD)
     lcd_string("Dist1="+dist1+" cm",LCD_LINE_1)
-    lcd_string("Dist1="+dist1+" cm",LCD_LINE_2)
-    
+    lcd_string("Dist2="+dist2+" cm",LCD_LINE_2)
+    print("Dist1="+dist1+" cm")
+    print("Dist2="+dist2+" cm")
     time.sleep(2) # 3 second delay
- 
+    print("wet_state " + str(wet_state))
+    print("dry_state"+ str(dry_state))
     # Send some text
     lcd_display(0x01,LCD_CMD)
     lcd_string("wet_state " + str(wet_state),LCD_LINE_1)
