@@ -57,14 +57,14 @@ def main():
     lcd_string("Dist1="+dist1+" cm",LCD_LINE_1)
     lcd_string("Dist1="+dist1+" cm",LCD_LINE_2)
     
-    sleep(2) # 3 second delay
+    time.sleep(2) # 3 second delay
  
     # Send some text
     lcd_display(0x01,LCD_CMD)
     lcd_string("wet_state " + str(wet_state),LCD_LINE_1)
     lcd_string("dry_state"+ str(dry_state),LCD_LINE_2)
 
-    sleep(2) # 3 second delay
+    time.sleep(2) # 3 second delay
 
       
 def lcd_init():
@@ -72,10 +72,11 @@ def lcd_init():
   lcd_display(0x0C,LCD_CMD) # Display On,Cursor Off, Blink Off
   lcd_display(0x01,LCD_CMD) # Clear display
 
-  sleep(E_DELAY)
+  time.sleep(E_DELAY)
  
 def lcd_display(bits, mode):
   # Send byte to data pins
+  
   # bits = data
   # mode = True  for character
   #        False for command
