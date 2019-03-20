@@ -9,12 +9,12 @@ GPIO_ECHO2 = 13
 dry_sens = 3
 moist_sens = 9
 # Define GPIO to LCD mapping
-LCD_RS = 7
-LCD_E  = 8
-LCD_D4 = 25
-LCD_D5 = 24
-LCD_D6 = 23
-LCD_D7 = 18
+LCD_RS = 26
+LCD_E  = 24
+LCD_D4 = 22
+LCD_D5 = 18
+LCD_D6 = 16
+LCD_D7 = 12
  
 # Define some device constants
 LCD_WIDTH = 16    # Maximum characters per line
