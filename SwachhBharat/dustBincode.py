@@ -7,7 +7,7 @@ GPIO_ECHO1 = 7
 GPIO_TRIGGER2 = 15
 GPIO_ECHO2 = 13
 dry_sens = 3
-moist_sens = 9
+moist_sens = 11
 # Define GPIO to LCD mapping
 LCD_RS = 26
 LCD_E  = 24
