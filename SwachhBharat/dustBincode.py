@@ -76,9 +76,9 @@ def main():
           ser.write ("1Welcome \n")
           ser.write("2Dry Waste \n")
           os.system("aplay welcome.wav")
-          time.sleep(2)
+          time.sleep(1)
           os.system("aplay left.wav")
-          time.sleep(2)
+          time.sleep(1)
           os.system("aplay right.wav")
           dry_state =GPIO.input(dry_sens)
           if dry_state == False:
@@ -98,11 +98,11 @@ def main():
           ser.write ("1Welcome \n")
           ser.write("2Wet Waste \n")
           os.system("aplay welcome.wav")
-          time.sleep(2)
+          time.sleep(1)
           os.system("aplay left.wav")
-          time.sleep(2)
+          time.sleep(1)
           os.system("aplay right.wav")
-          wet_state =GPIO.input(wet_sens)
+          wet_state =GPIO.input(moist_sens)
           if dry_state == True:
                     os.system("aplay right.wav")
           else :
