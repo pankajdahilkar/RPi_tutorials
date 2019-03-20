@@ -52,8 +52,8 @@ def main():
     # Send some test 
     ser.write("1Dist1="+str(d1)+" cm"+"\n")
     ser.write("2Dist2="+str(d2)+" cm"+"\n")
-    print("Dist1="+dist1+" cm")
-    print("Dist2="+dist2+" cm")
+    print("Dist1="+str(dist1)+" cm")
+    print("Dist2="+str(dist2)+" cm")
     time.sleep(2) # 3 second delay
     s1="Dry"
     s2="Dry"
