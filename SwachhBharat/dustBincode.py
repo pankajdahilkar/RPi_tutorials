@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import os
 import time
 import serial
-ser = serial.serial ("/dev/ttyUSB0", 9600)
+ser = serial.Serial ("/dev/ttyUSB0", 9600)
 GPIO_TRIGGER1 = 5
 GPIO_ECHO1 = 7
 GPIO_TRIGGER2 = 15
@@ -40,7 +40,7 @@ def main():
   GPIO.setup(dry_sens, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
   GPIO.setup(moist_sens, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
   # Initialise display
-  lcd_init()
+  
   os.system("aplay welcome.wav")
   while True:
     dist1 = distance1()
