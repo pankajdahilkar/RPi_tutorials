@@ -103,7 +103,7 @@ def main():
           time.sleep(1)
           os.system("aplay right.wav")
           wet_state =GPIO.input(moist_sens)
-          if dry_state == True:
+          if wet_state == True:
                     os.system("aplay right.wav")
           else :
               s2="Dry"
