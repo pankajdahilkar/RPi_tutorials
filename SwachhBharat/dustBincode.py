@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 import os
 import time
-
+import serial
+ser = serial.Serial ("/dev/ttyUSB0", 9600)
 GPIO_TRIGGER1 = 5
 GPIO_ECHO1 = 7
 GPIO_TRIGGER2 = 15
@@ -32,12 +33,6 @@ def main():
   # Main program block
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BOARD)       # Use BCM GPIO numbers
-  GPIO.setup(LCD_E, GPIO.OUT)  # E
-  GPIO.setup(LCD_RS, GPIO.OUT) # RS
-  GPIO.setup(LCD_D4, GPIO.OUT) # DB4
-  GPIO.setup(LCD_D5, GPIO.OUT) # DB5
-  GPIO.setup(LCD_D6, GPIO.OUT) # DB6
-  GPIO.setup(LCD_D7, GPIO.OUT) # DB7
   GPIO.setup(GPIO_TRIGGER1, GPIO.OUT)
   GPIO.setup(GPIO_ECHO1, GPIO.IN)
   GPIO.setup(GPIO_TRIGGER2, GPIO.OUT)
@@ -50,93 +45,76 @@ def main():
   while True:
     dist1 = distance1()
     dist2 = distance2()
+    d1 = int(dist1)
+    d2 = int(dist2)    
     dry_state =GPIO.input(dry_sens)
     wet_state = GPIO.input(moist_sens)
-    # Send some test
-    lcd_display(0x01,LCD_CMD)
-    lcd_string("Dist1="+dist1+" cm",LCD_LINE_1)
-    lcd_string("Dist2="+dist2+" cm",LCD_LINE_2)
+    # Send some test 
+    ser.write("1Dist1="+d1+" cm"+"\n")
+    ser.write("2Dist2="+d2+" cm"+"\n")
     print("Dist1="+dist1+" cm")
     print("Dist2="+dist2+" cm")
     time.sleep(2) # 3 second delay
-    print("wet_state " + str(wet_state))
-    print("dry_state"+ str(dry_state))
+    s1="Dry"
+    s2="Dry"
+    if wet_state == False:
+        s1="wet"
+    else :
+        s1="Dry"
+    if dry_state == False:
+        s2="wet"
+    else :
+        s2="Dry"
+        
+    print("wet_state =" + s1)
+    print("dry_state ="+ s2)
     # Send some text
-    lcd_display(0x01,LCD_CMD)
-    lcd_string("wet_state " + str(wet_state),LCD_LINE_1)
-    lcd_string("dry_state"+ str(dry_state),LCD_LINE_2)
-
+    ser.write("1wet_state=" + s1+"\n")
+    ser.write ("2dry_state="+ s2+"\n")
     time.sleep(2) # 3 second delay
+    if(d1 < 7 and d1 > 0):
+          ser.write ("1Welcome \n")
+          ser.write("2Dry Waste \n")
+          os.system("aplay welcome.wav")
+          time.sleep(2)
+          os.system("aplay left.wav")
+          time.sleep(2)
+          os.system("aplay right.wav")
+          dry_state =GPIO.input(dry_sens)
+           if dry_state == False:
+                    os.system("aplay left.wav")
+           else :
+              s2="Dry"
+              os.system("aplay wifi.wav")
+              ser.write ("1Password \n")
+              ser.write("2digitalindia \n")
+              time.sleep(6)
+              os.system("aplay thank.wav")
+              ser.write ("1Thank You \n")
+              ser.write ("2 Have nice day \n")
+              os.system("aplay wish.wav")
 
-      
-def lcd_init():
-  lcd_display(0x28,LCD_CMD) # Selecting 4 - bit mode with two rows
-  lcd_display(0x0C,LCD_CMD) # Display On,Cursor Off, Blink Off
-  lcd_display(0x01,LCD_CMD) # Clear display
-
-  time.sleep(E_DELAY)
- 
-def lcd_display(bits, mode):
-  # Send byte to data pins
-  
-  # bits = data
-  # mode = True  for character
-  #        False for command
- 
-  GPIO.output(LCD_RS, mode) # RS
- 
-  # High bits
-  GPIO.output(LCD_D4, False)
-  GPIO.output(LCD_D5, False)
-  GPIO.output(LCD_D6, False)
-  GPIO.output(LCD_D7, False)
-  if bits&0x10==0x10:
-    GPIO.output(LCD_D4, True)
-  if bits&0x20==0x20:
-    GPIO.output(LCD_D5, True)
-  if bits&0x40==0x40:
-    GPIO.output(LCD_D6, True)
-  if bits&0x80==0x80:
-    GPIO.output(LCD_D7, True)
- 
-  # Toggle 'Enable' pin
-  lcd_toggle_enable()
- 
-  # Low bits
-  GPIO.output(LCD_D4, False)
-  GPIO.output(LCD_D5, False)
-  GPIO.output(LCD_D6, False)
-  GPIO.output(LCD_D7, False)
-  if bits&0x01==0x01:
-    GPIO.output(LCD_D4, True)
-  if bits&0x02==0x02:
-    GPIO.output(LCD_D5, True)
-  if bits&0x04==0x04:
-    GPIO.output(LCD_D6, True)
-  if bits&0x08==0x08:
-    GPIO.output(LCD_D7, True)
- 
-  # Toggle 'Enable' pin
-  lcd_toggle_enable()
- 
-def lcd_toggle_enable():
-  # Toggle enable
-  time.sleep(E_DELAY)
-  GPIO.output(LCD_E, True)
-  time.sleep(E_PULSE)
-  GPIO.output(LCD_E, False)
-  time.sleep(E_DELAY)
- 
-def lcd_string(message,line):
-  # Send string to display
- 
-  message = message.ljust(LCD_WIDTH," ")
- 
-  lcd_display(line, LCD_CMD)
- 
-  for i in range(LCD_WIDTH):
-    lcd_display(ord(message[i]),LCD_CHR)
-    time.sleep(0.001)
+    if(d2 < 7 and d2 > 0):
+          ser.write ("1Welcome \n")
+          ser.write("2Wet Waste \n")
+          os.system("aplay welcome.wav")
+          time.sleep(2)
+          os.system("aplay left.wav")
+          time.sleep(2)
+          os.system("aplay right.wav")
+          wet_state =GPIO.input(wet_sens)
+           if dry_state == True:
+                    os.system("aplay right.wav")
+           else :
+              s2="Dry"
+              os.system("aplay wifi.wav")
+              ser.write ("1Password \n")
+              ser.write("2digitalindia \n")
+              time.sleep(6)
+              os.system("aplay thank.wav")
+              ser.write ("1Thank You \n")
+              ser.write ("2 Have nice day \n")
+              os.system("aplay wish.wav")
 
     
 def distance1():
@@ -151,7 +129,7 @@ def distance1():
         StopTime1 = time.time()
     TimeElapsed1 = StopTime1 - StartTime1
     distance1 = (TimeElapsed1 * 34300) / 2
-    return str(distance1)
+    return (distance1)
 
 def distance2():
     GPIO.output(GPIO_TRIGGER2, True)
@@ -165,7 +143,7 @@ def distance2():
         StopTime2 = time.time()
     TimeElapsed2 = StopTime2 - StartTime2
     distance2 = (TimeElapsed2 * 34300) / 2
-    return str(distance2)
+    return (distance2)
 
 
 if __name__ == '__main__':
@@ -175,5 +153,4 @@ if __name__ == '__main__':
   except KeyboardInterrupt:
     pass
   finally:
-    lcd_display(0x01, LCD_CMD)
     GPIO.cleanup()
