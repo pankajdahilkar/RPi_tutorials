@@ -42,8 +42,8 @@ def main():
   GPIO.setup(GPIO_ECHO1, GPIO.IN)
   GPIO.setup(GPIO_TRIGGER2, GPIO.OUT)
   GPIO.setup(GPIO_ECHO2, GPIO.IN)
-  GPIO.setup(dry_sens, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-  GPIO.setup(moist_sens, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+  GPIO.setup(dry_sens, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+  GPIO.setup(moist_sens, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
   # Initialise display
   lcd_init()
   os.system("aplay welcome.wav")
