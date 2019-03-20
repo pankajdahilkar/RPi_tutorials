@@ -133,6 +133,7 @@ def lcd_string(message,line):
  
   for i in range(LCD_WIDTH):
     lcd_display(ord(message[i]),LCD_CHR)
+    time.sleep(0.001)
 
     
 def distance1():
