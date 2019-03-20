@@ -81,9 +81,9 @@ def main():
           time.sleep(2)
           os.system("aplay right.wav")
           dry_state =GPIO.input(dry_sens)
-           if dry_state == False:
+          if dry_state == False:
                     os.system("aplay left.wav")
-           else :
+          else :
               s2="Dry"
               os.system("aplay wifi.wav")
               ser.write ("1Password \n")
@@ -103,9 +103,9 @@ def main():
           time.sleep(2)
           os.system("aplay right.wav")
           wet_state =GPIO.input(wet_sens)
-           if dry_state == True:
+          if dry_state == True:
                     os.system("aplay right.wav")
-           else :
+          else :
               s2="Dry"
               os.system("aplay wifi.wav")
               ser.write ("1Password \n")
