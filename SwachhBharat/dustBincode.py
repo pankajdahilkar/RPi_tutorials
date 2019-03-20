@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import os
 import time
 import serial
-ser = serial.Serial ("/dev/ttyUSB0", 9600)
+ser = serial.serial ("/dev/ttyUSB0", 9600)
 GPIO_TRIGGER1 = 5
 GPIO_ECHO1 = 7
 GPIO_TRIGGER2 = 15
