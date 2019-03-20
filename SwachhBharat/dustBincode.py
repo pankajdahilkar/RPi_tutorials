@@ -50,8 +50,8 @@ def main():
     dry_state =GPIO.input(dry_sens)
     wet_state = GPIO.input(moist_sens)
     # Send some test 
-    ser.write("1Dist1="+d1+" cm"+"\n")
-    ser.write("2Dist2="+d2+" cm"+"\n")
+    ser.write("1Dist1="+str(d1)+" cm"+"\n")
+    ser.write("2Dist2="+str(d2)+" cm"+"\n")
     print("Dist1="+dist1+" cm")
     print("Dist2="+dist2+" cm")
     time.sleep(2) # 3 second delay
