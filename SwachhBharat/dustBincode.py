@@ -5,8 +5,10 @@ import serial
 ser = serial.Serial ("/dev/ttyUSB0", 9600)
 GPIO_TRIGGER1 = 5
 GPIO_ECHO1 = 7
+
 GPIO_TRIGGER2 = 15
 GPIO_ECHO2 = 13
+
 dry_sens = 3
 moist_sens = 11
 # Define GPIO to LCD mapping
